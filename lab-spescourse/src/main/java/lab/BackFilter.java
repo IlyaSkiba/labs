@@ -6,10 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 public class BackFilter implements Filter {
-    private String id;
-    private int c = 0;
+    private static final String SESSION_ATTR = "sessionObj";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -20,28 +18,18 @@ public class BackFilter implements Filter {
             session = req.getSession(true);
         }
 
-        Object id = session.getAttribute("reqId");
-        if (id != null) {
-            if (id.toString().equals(this.id)) {
-                this.id = req.getRequestURI();
-                resp.setHeader("reqId", c++ + "");
-                session.setAttribute("reqId", this.id);
-                chain.doFilter(request, response);
-                return;
+        Object attribute = session.getAttribute(SESSION_ATTR);
+        if (attribute != null) {
+            SessionAttribute object = (SessionAttribute) attribute;
+            if (object.validateCurrentUrl(req.getRequestURI())) {
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/error.xhtml");
             }
+            object.setParam(req.getRequestURI());
         } else {
-            this.id = req.getRequestURI();
-            session.setAttribute("reqId", this.id);
-            resp.setHeader("reqId", c++ + "");
-            chain.doFilter(request, response);
-            return;
+            session.setAttribute(SESSION_ATTR, new SessionAttribute());
         }
-        this.id = req.getRequestURI();
-        session.setAttribute("reqId", this.id);
-        resp.setHeader("reqId", c++ + "");
-        HttpServletResponse res = (HttpServletResponse) response;
-        res.sendRedirect(req.getContextPath() + "error.xhtml");
-
+        chain.doFilter(request, response);
     }
 
     @Override
