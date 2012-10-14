@@ -1,16 +1,13 @@
-package bsu.lab;
+package bsu.lab.presentation.filter;
 
-import bsu.lab.exception.FilterException;
+import bsu.lab.presentation.filter.exception.FilterException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created with IntelliJ IDEA.
- * User: meloman
- * Date: 13.09.12
- * Time: 18:25
- * To change this template use File | Settings | File Templates.
+ * @author Ilya SKiba
+ * @created 13.09.12
  */
 public interface MegoFilter {
 

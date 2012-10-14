@@ -1,8 +1,8 @@
-package bsu.lab.impl;
+package bsu.lab.presentation.filter.impl;
 
-import bsu.lab.FilterManager;
-import bsu.lab.MegoFilter;
-import bsu.lab.exception.FilterException;
+import bsu.lab.presentation.filter.FilterManager;
+import bsu.lab.presentation.filter.MegoFilter;
+import bsu.lab.presentation.filter.exception.FilterException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

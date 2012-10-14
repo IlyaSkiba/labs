@@ -1,4 +1,4 @@
-package bsu.lab.servlet;
+package bsu.lab.presentation.servlet;
 
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
@@ -11,6 +11,6 @@ import javax.servlet.annotation.WebServlet;
  * Time: 17:58
  */
 
-@WebServlet(description = "Http Servlet using pure java / annotations", urlPatterns = {"/"}, name = "mainHandler")
-public class StartServlet extends HttpRequestHandlerServlet {
+@WebServlet(description = "List Servlet", urlPatterns = {"/list"}, name = "mainHandler")
+public class ListServlet extends HttpRequestHandlerServlet {
 }

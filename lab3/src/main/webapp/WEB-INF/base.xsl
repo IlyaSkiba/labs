@@ -3,50 +3,52 @@
 
     <xsl:template match="/">
         <html>
+            <head>
+                <link rel="stylesheet" type="text/css" href="styles.css"/>
+            </head>
             <body>
-                <h2>CD Collection</h2>
-                <table>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            Artist
-                        </td>
-                    </tr>
-                    <xsl:apply-templates/>
-                </table>
+                <div class="container">
+                    <div class="header">
+                        <div class="selection">
+                            Select
+                        </div>
+                        <div class="column">
+                            Name
+                        </div>
+                        <div class="column">
+                            Address
+                        </div>
+                        <div class="column">
+                            Phone
+                        </div>
+                    </div>
+                    <xsl:apply-templates select="clients"/>
+                </div>
+                <div class="links">
+                    <a href="register/add.jsp">Add</a>
+                    <a href="delete">Delete</a>
+                </div>
             </body>
         </html>
     </xsl:template>
 
-    <xsl:template match="cd">
-        <p>
-            <tr>
-                <xsl:apply-templates select="title"/>
-                <xsl:apply-templates select="artist"/>
-            </tr>
-        </p>
+    <xsl:template match="clients">
+        <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="title">
-        <td>
-
-            <span style="color:#ff0000">
-                <xsl:value-of select="."/>
-            </span>
-            <br/>
-        </td>
+    <xsl:template match="client">
+        <div class="row">
+            <div class="selection">
+                <input type="checkbox"/>
+            </div>
+            <xsl:apply-templates/>
+        </div>
     </xsl:template>
 
-    <xsl:template match="artist">
-        <td>
-
-            <span style="color:#00ff00">
-                <xsl:value-of select="."/>
-            </span>
-            <br/>
-        </td>
+    <xsl:template match="name|address|phone">
+        <div class="column">
+            <xsl:value-of select="."/>
+        </div>
     </xsl:template>
 
 </xsl:stylesheet>

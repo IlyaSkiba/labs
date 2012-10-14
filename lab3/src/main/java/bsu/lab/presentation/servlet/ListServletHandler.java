@@ -1,6 +1,7 @@
-package bsu.lab.servlet;
+package bsu.lab.presentation.servlet;
 
-import bsu.lab.FilterManager;
+import bsu.lab.business.businessObjects.Client;
+import bsu.lab.business.scripts.ValueListHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestHandler;
@@ -16,6 +17,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
+import java.io.StringReader;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,34 +27,41 @@ import java.io.IOException;
  * Time: 19:37
  */
 @Component("mainHandler")
-public class ServletHandler implements HttpRequestHandler {
-    private FilterManager filterManager;
+public class ListServletHandler implements HttpRequestHandler {
+
     @Autowired
     private ServletContext servletContext;
+    @Autowired
+    private ValueListHandler valueListHandler;
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //   boolean result = filterManager.doFilter(request, response);
 
         try {
             TransformerFactory tFactory = TransformerFactory.newInstance();
-            Transformer transformer = tFactory.newTransformer(new StreamSource(getServletContext().getResourceAsStream("WEB-INF/base.xsl")));
-            transformer.transform(new StreamSource(getServletContext().getResourceAsStream("WEB-INF/inp.xml")), new StreamResult(response.getOutputStream()));
-            System.out.println("************* The result is in output.out *************");
+            Transformer transformer = tFactory.newTransformer(new StreamSource(getServletContext()
+                    .getResourceAsStream("WEB-INF/base.xsl")));
+
+            transformer.transform(new StreamSource(new StringReader(getList(ValueListHandler.DIRECTION.FIRST))),
+                    new StreamResult(response.getOutputStream()));
 
         } catch (TransformerConfigurationException e) {
             e.printStackTrace();
         } catch (TransformerException e) {
             e.printStackTrace();
         }
-
-
     }
 
-    @Autowired
-    public void setFilterManager(FilterManager filterManager) {
-        this.filterManager = filterManager;
+    private String getList(ValueListHandler.DIRECTION direction) {
+        StringBuilder result = new StringBuilder();
+        result.append("<clients>");
+        List<Client> clientList = valueListHandler.navigate(direction);
+        for (Client client : clientList) {
+            result.append(client.toString());
+        }
+        result.append("</clients>");
+        return result.toString();
     }
 
     public ServletContext getServletContext() {

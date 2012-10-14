@@ -1,0 +1,13 @@
+.container .column {
+    display: inline-block;
+    width: 300px;
+}
+
+.container .selection {
+    display: inline-block;
+    width: 50px;
+}
+
+.container .header {
+    background-color: green;
+}

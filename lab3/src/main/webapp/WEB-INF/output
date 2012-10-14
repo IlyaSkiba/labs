@@ -1,0 +1,46 @@
+<html>
+<body>
+<h2>CD Collection</h2>
+<table>
+<tr>
+<td>
+                            Title
+                        </td><td>
+                            Artist
+                        </td>
+</tr>
+    
+<p>
+<tr>
+<td><span style="color:#ff0000">Empire Burlesque</span>
+<br>
+</td><td><span style="color:#00ff00">Bob Dylan</span>
+<br>
+</td>
+</tr>
+</p>
+    
+<p>
+<tr>
+<td><span style="color:#ff0000">Greatest Hits</span>
+<br>
+</td><td><span style="color:#00ff00">Cris Deburg</span>
+<br>
+</td>
+</tr>
+</p>
+    
+<p>
+<tr>
+<td><span style="color:#ff0000">Greatest Hits</span>
+<br>
+</td><td><span style="color:#00ff00">Cris Rea</span>
+<br>
+</td>
+</tr>
+</p>
+
+
+</table>
+</body>
+</html>
