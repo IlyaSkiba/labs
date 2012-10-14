@@ -38,7 +38,7 @@ public class ValueListHandlerImpl implements ValueListHandler {
                 this.from = Math.max(from - PAGE_SIZE, 0);
                 break;
             case NEXT:
-                this.from += from + pageSize;
+                this.from = Math.min(pageSize + from, clientDao.getSize());
                 pageSize = clientDao.getSize() < from + PAGE_SIZE ?
                         clientDao.getSize() - from : PAGE_SIZE;
                 break;

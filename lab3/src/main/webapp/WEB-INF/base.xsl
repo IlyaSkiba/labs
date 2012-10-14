@@ -23,9 +23,36 @@
                         </div>
                     </div>
                     <xsl:apply-templates select="clients"/>
+                    <div class="buttons">
+                        <div style="display:inline-block">
+                            <form action="list?Direction=FIRST">
+                                <input type="hidden" name="Direction" value="FIRST"/>
+                                <button type="submit">First</button>
+                            </form>
+                        </div>
+                        <div style="display:inline-block">
+                            <form action="list">
+                                <input type="hidden" name="Direction" value="PREV"/>
+                                <button type="submit">Previous</button>
+                            </form>
+                        </div>
+                        <div style="display:inline-block">
+                            <form action="list">
+                                <input type="hidden" name="Direction" value="NEXT"/>
+                                <button type="submit">Next</button>
+                            </form>
+                        </div>
+                        <div style="display:inline-block">
+                            <form action="list">
+                                <input type="hidden" name="Direction" value="LAST"/>
+                                <button type="submit">Last</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="links">
                     <a href="register/add.jsp">Add</a>
+                    <br/>
                     <a href="delete">Delete</a>
                 </div>
             </body>

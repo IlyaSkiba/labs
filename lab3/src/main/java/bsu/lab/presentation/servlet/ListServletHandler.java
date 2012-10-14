@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
+import static bsu.lab.business.scripts.ValueListHandler.DIRECTION;
+
 /**
  * Created with IntelliJ IDEA.
  * User: meloman
@@ -28,7 +30,7 @@ import java.util.List;
  */
 @Component("mainHandler")
 public class ListServletHandler implements HttpRequestHandler {
-
+    private static final String DIRECTION_NAME = "Direction";
     @Autowired
     private ServletContext servletContext;
     @Autowired
@@ -37,13 +39,17 @@ public class ListServletHandler implements HttpRequestHandler {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String direction = (String) request.getParameter(DIRECTION_NAME);
+        DIRECTION currDirection = DIRECTION.PREV;
+        if (direction != null) {
+            currDirection = DIRECTION.valueOf(direction);
+        }
         try {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer(new StreamSource(getServletContext()
                     .getResourceAsStream("WEB-INF/base.xsl")));
 
-            transformer.transform(new StreamSource(new StringReader(getList(ValueListHandler.DIRECTION.FIRST))),
+            transformer.transform(new StreamSource(new StringReader(getList(currDirection))),
                     new StreamResult(response.getOutputStream()));
 
         } catch (TransformerConfigurationException e) {
@@ -53,7 +59,7 @@ public class ListServletHandler implements HttpRequestHandler {
         }
     }
 
-    private String getList(ValueListHandler.DIRECTION direction) {
+    private String getList(final DIRECTION direction) {
         StringBuilder result = new StringBuilder();
         result.append("<clients>");
         List<Client> clientList = valueListHandler.navigate(direction);
