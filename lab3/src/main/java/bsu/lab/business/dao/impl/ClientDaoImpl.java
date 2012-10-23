@@ -42,4 +42,9 @@ public class ClientDaoImpl implements ClientDao {
     public void create(Client client) {
         clients.add(client);
     }
+
+    @Override
+    public Client retrieve(String id) {
+        return null;
+    }
 }

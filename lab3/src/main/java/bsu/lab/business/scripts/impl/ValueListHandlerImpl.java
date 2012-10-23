@@ -1,7 +1,7 @@
 package bsu.lab.business.scripts.impl;
 
 import bsu.lab.business.businessObjects.Client;
-import bsu.lab.business.dao.ClientDao;
+import bsu.lab.business.dao.controller.UnityController;
 import bsu.lab.business.scripts.ValueListHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class ValueListHandlerImpl implements ValueListHandler {
     private final int PAGE_SIZE;
     private int from = 0;
     @Autowired
-    private ClientDao clientDao;
+    private UnityController unityController;
 
     public ValueListHandlerImpl() {
         PAGE_SIZE = 2;
@@ -48,6 +48,6 @@ public class ValueListHandlerImpl implements ValueListHandler {
             default:
                 throw new IllegalArgumentException("Not implemented direction " + direction);
         }
-        return clientDao.getClient(from, pageSize);
+        return unityController.getClients(from, pageSize);
     }
 }

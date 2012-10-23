@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author Ilya SKiba
- * Date: 10.10.12
+ *         Date: 10.10.12
  */
 public interface ClientDao {
 
@@ -19,4 +19,6 @@ public interface ClientDao {
     int getSize();
 
     void create(Client client);
+
+    Client retrieve(String id);
 }

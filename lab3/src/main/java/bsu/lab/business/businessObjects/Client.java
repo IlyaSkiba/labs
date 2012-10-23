@@ -7,9 +7,18 @@ package bsu.lab.business.businessObjects;
  * Time: 18:11
  */
 public class Client {
+    private String id;
     private String name;
     private String address;
     private String telephone;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

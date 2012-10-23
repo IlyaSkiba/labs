@@ -1,7 +1,7 @@
 package bsu.lab.business.scripts.impl;
 
 import bsu.lab.business.businessObjects.Client;
-import bsu.lab.business.dao.ClientDao;
+import bsu.lab.business.dao.controller.UnityController;
 import bsu.lab.business.scripts.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,20 +13,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
-    private ClientDao clientDao;
+    private UnityController unityController;
 
     @Override
     public void create(Client client) {
-        clientDao.create(client);
+        unityController.create(client);
     }
 
     @Override
     public void update(Client client) {
-        clientDao.update(client);
+        unityController.update(client);
     }
 
     @Override
     public void delete(Client client) {
-        clientDao.delete(client);
+        unityController.delete(client);
     }
 }
