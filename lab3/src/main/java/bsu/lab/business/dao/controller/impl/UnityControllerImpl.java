@@ -3,11 +3,13 @@ package bsu.lab.business.dao.controller.impl;
 import bsu.lab.business.businessObjects.Client;
 import bsu.lab.business.dao.ClientDao;
 import bsu.lab.business.dao.controller.UnityController;
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -76,11 +78,23 @@ public class UnityControllerImpl implements UnityController {
                 dirty = true;
             }
         }
+        unModifiedCache.clear();
+        cache.clear();
+
         return dirty;
     }
 
     @Override
     public List<Client> getClients(int from, int limit) {
-        return clientDao.getClient(from, limit);
+
+        return new ArrayList<Client>(cache.values()).subList(from, limit);
+    }
+
+    @Override
+    public int getSize() {
+        int size = Sets.difference(cache.keySet(), unModifiedCache.keySet()).size();
+        size += clientDao.getSize();
+        size -= Sets.difference(unModifiedCache.keySet(), cache.keySet()).size();
+        return size;
     }
 }

@@ -78,4 +78,18 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="id">
+        <div class="column">
+            <input type="check">
+                <xsl:attribute name="name">
+                    <xsl:value-of select="."/>
+                </xsl:attribute>
+            </input>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="clients">
+        <xsl:apply-templates/>
+    </xsl:template>
+
 </xsl:stylesheet>

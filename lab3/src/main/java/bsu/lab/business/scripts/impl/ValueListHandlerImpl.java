@@ -29,7 +29,7 @@ public class ValueListHandlerImpl implements ValueListHandler {
 
     @Override
     public List<Client> navigate(DIRECTION direction) {
-        int pageSize = Math.min(PAGE_SIZE, clientDao.getSize());
+        int pageSize = Math.min(PAGE_SIZE, unityController.getSize());
         switch (direction) {
             case FIRST:
                 this.from = 0;
@@ -38,12 +38,12 @@ public class ValueListHandlerImpl implements ValueListHandler {
                 this.from = Math.max(from - PAGE_SIZE, 0);
                 break;
             case NEXT:
-                this.from = Math.min(pageSize + from, clientDao.getSize());
-                pageSize = clientDao.getSize() < from + PAGE_SIZE ?
-                        clientDao.getSize() - from : PAGE_SIZE;
+                this.from = Math.min(pageSize + from, unityController.getSize());
+                pageSize = unityController.getSize() < from + PAGE_SIZE ?
+                        unityController.getSize() - from : PAGE_SIZE;
                 break;
             case LAST:
-                this.from = Math.max(clientDao.getSize() - PAGE_SIZE, 0);
+                this.from = Math.max(unityController.getSize() - PAGE_SIZE, 0);
                 break;
             default:
                 throw new IllegalArgumentException("Not implemented direction " + direction);

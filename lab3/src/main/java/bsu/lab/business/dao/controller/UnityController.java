@@ -20,4 +20,6 @@ public interface UnityController {
     boolean commit();
 
     List<Client> getClients(int from, int limit);
+
+    int getSize();
 }
